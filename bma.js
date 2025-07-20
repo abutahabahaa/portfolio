@@ -123,4 +123,59 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'mailto:abutahabahaa6@gmail.com';
         });
     }
+
+    // --- Language Switcher ---
+    const langToggle = document.getElementById('lang-toggle');
+    const aboutSection = document.getElementById('about');
+    const sectionTitles = document.querySelectorAll('.section-title');
+    const translations = {
+        EN: {
+            about: `<h2 class="section-title">About Me</h2><p class="section-intro">I am a passionate and driven Computer Science student from the Islamic University of Gaza, with a strong focus on full-stack web development. My journey in tech is fueled by a love for building elegant, efficient, and user-friendly digital experiences. I am a lifelong learner, constantly exploring new technologies to enhance my skills and deliver high-quality solutions.</p><a href=\"Bahaa AbuTaha - CV.pdf\" class=\"btn\" download> <i class=\"fas fa-download\"></i> Download Resume</a>`,
+            titles: ["About Me", "Education & Experience", "Core Skills", "My Projects", "Get In Touch"]
+        },
+        AR: {
+            about: `<h2 class=\"section-title\">عنّي</h2><p class=\"section-intro\">أنا طالب علوم حاسوب شغوف من الجامعة الإسلامية بغزة، أركز على تطوير الويب الكامل. شغفي بالتقنية يدفعني لبناء تجارب رقمية أنيقة وسهلة الاستخدام. أتعلم باستمرار تقنيات جديدة لتطوير مهاراتي وتقديم حلول عالية الجودة.</p><a href=\"Bahaa AbuTaha - CV.pdf\" class=\"btn\" download> <i class=\"fas fa-download\"></i> تحميل السيرة الذاتية</a>`,
+            titles: ["عنّي", "التعليم والخبرة", "المهارات الأساسية", "مشاريعي", "تواصل معي"]
+        }
+    };
+    let currentLang = localStorage.getItem('lang') || 'EN';
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+        langToggle.textContent = lang;
+        // About section
+        if (aboutSection) aboutSection.innerHTML = translations[lang].about;
+        // Section titles
+        document.querySelectorAll('.section-title').forEach((el, i) => {
+            if (translations[lang].titles[i]) el.textContent = translations[lang].titles[i];
+        });
+    }
+    if (langToggle) {
+        langToggle.addEventListener('click', () => {
+            setLanguage(currentLang === 'EN' ? 'AR' : 'EN');
+        });
+        setLanguage(currentLang);
+    }
+
+    // --- Konami Code Easter Egg ---
+    const konamiCode = [38,38,40,40,37,39,37,39,66,65];
+    let konamiIndex = 0;
+    const konamiModal = document.getElementById('konami-modal');
+    const closeKonami = document.getElementById('close-konami');
+    document.addEventListener('keydown', (e) => {
+        if (e.keyCode === konamiCode[konamiIndex]) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+                if (konamiModal) konamiModal.style.display = 'flex';
+                konamiIndex = 0;
+            }
+        } else {
+            konamiIndex = 0;
+        }
+    });
+    if (closeKonami && konamiModal) {
+        closeKonami.addEventListener('click', () => {
+            konamiModal.style.display = 'none';
+        });
+    }
 });

@@ -56,6 +56,10 @@
                             <i class="fas fa-moon" aria-hidden="true"></i>
                         </button>
                     </div>
+                    <div class="language-switcher">
+                        <p>Language:</p>
+                        <button id="lang-toggle" aria-label="Toggle language">EN</button>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -170,5 +174,13 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="bma.js"></script>
 
+    <!-- Konami Code Modal -->
+    <div id="konami-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:9999;justify-content:center;align-items:center;color:#fff;font-size:2rem;text-align:center;">
+        <div>
+            🎉 You found the Easter Egg! 🎉<br/>
+            <span style="font-size:1.2rem;">Konami Code Activated!</span><br/>
+            <button id="close-konami" style="margin-top:2rem;padding:1rem 2rem;font-size:1rem;">Close</button>
+        </div>
+    </div>
 </body>
 </html>
