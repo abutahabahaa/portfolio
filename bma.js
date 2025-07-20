@@ -44,23 +44,54 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Mobile Navigation --- 
     const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
     const sidebar = document.querySelector('.sidebar');
+    const sidebarOverlay = document.querySelector('.sidebar-overlay');
     const mainContent = document.querySelector('.main-content');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function openSidebar() {
+        sidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+        mobileNavToggle.setAttribute('aria-expanded', 'true');
+        // Trap focus inside sidebar
+        sidebar.setAttribute('tabindex', '-1');
+        sidebar.focus();
+    }
+    function closeSidebar() {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+        mobileNavToggle.setAttribute('aria-expanded', 'false');
+        sidebar.removeAttribute('tabindex');
+    }
 
     mobileNavToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
+        if (sidebar.classList.contains('active')) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+    });
+
+    // Close sidebar when clicking on the overlay
+    sidebarOverlay.addEventListener('click', closeSidebar);
+
+    // Close sidebar when clicking a nav link (on mobile)
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 1024) {
+                closeSidebar();
+            }
+        });
     });
 
     // Close sidebar when clicking on the main content
     mainContent.addEventListener('click', () => {
         if (sidebar.classList.contains('active')) {
-            sidebar.classList.remove('active');
+            closeSidebar();
         }
     });
 
     // --- Active Nav Link Highlighting on Scroll ---
     const sections = document.querySelectorAll(".content-section");
-    const navLinks = document.querySelectorAll(".nav-link");
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {

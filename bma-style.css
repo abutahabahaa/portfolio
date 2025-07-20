@@ -424,33 +424,90 @@ body.light-mode {
 .dark-mode .main-footer { color: var(--text-secondary-dark); }
 .light-mode .main-footer { color: var(--text-secondary-light); }
 
-/* --- Mobile Responsive --- */
-.mobile-nav-toggle {
-    display: none;
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
-    z-index: 101;
-    background: var(--surface-dark);
-    border: 1px solid var(--border-dark);
-    color: var(--text-primary-dark);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 1.2rem;
+/* --- Accessibility: Skip to Content --- */
+.skip-to-content {
+    position: absolute;
+    left: -999px;
+    top: 1rem;
+    background: var(--blue-accent);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    z-index: 200;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: left 0.3s;
+}
+.skip-to-content:focus {
+    left: 1rem;
+    outline: 2px solid var(--blue-accent-dark);
 }
 
+/* --- Focus States for Accessibility --- */
+.nav-link:focus, .btn:focus, #theme-toggle:focus, .mobile-nav-toggle:focus {
+    outline: 2px solid var(--blue-accent-dark);
+    outline-offset: 2px;
+    background: rgba(0,198,255,0.15);
+}
+
+/* --- Improved Color Contrast for Accessibility --- */
+.nav-link:hover, .nav-link.active {
+    color: #fff !important;
+    background: linear-gradient(90deg, var(--blue-accent), var(--blue-accent-dark));
+}
+
+/* --- Sidebar Overlay for Mobile --- */
 @media (max-width: 1024px) {
     .sidebar {
         transform: translateX(-100%);
+        transition: transform var(--transition-speed) ease;
+        z-index: 200;
     }
     .sidebar.active {
         transform: translateX(0);
+    }
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.4);
+        z-index: 150;
+    }
+    .sidebar-overlay.active {
+        display: block;
     }
     .main-content {
         width: 100%;
         margin-left: 0;
     }
+    .mobile-nav-toggle {
+        display: block;
+    }
+}
+
+/* --- Mobile Nav Toggle: Improved Visibility --- */
+.mobile-nav-toggle {
+    display: none;
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 201;
+    background: var(--blue-accent);
+    border: 2px solid var(--blue-accent-dark);
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: background 0.2s, color 0.2s;
+}
+.mobile-nav-toggle:focus {
+    outline: 2px solid var(--blue-accent-dark);
+}
+@media (max-width: 1024px) {
     .mobile-nav-toggle {
         display: block;
     }
