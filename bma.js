@@ -156,26 +156,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         setLanguage(currentLang);
     }
-
-    // --- Konami Code Easter Egg ---
-    const konamiCode = [38,38,40,40,37,39,37,39,66,65];
-    let konamiIndex = 0;
-    const konamiModal = document.getElementById('konami-modal');
-    const closeKonami = document.getElementById('close-konami');
-    document.addEventListener('keydown', (e) => {
-        if (e.keyCode === konamiCode[konamiIndex]) {
-            konamiIndex++;
-            if (konamiIndex === konamiCode.length) {
-                if (konamiModal) konamiModal.style.display = 'flex';
-                konamiIndex = 0;
-            }
-        } else {
-            konamiIndex = 0;
-        }
-    });
-    if (closeKonami && konamiModal) {
-        closeKonami.addEventListener('click', () => {
-            konamiModal.style.display = 'none';
-        });
-    }
 });
