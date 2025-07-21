@@ -22,9 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (savedTheme === 'light') {
             body.classList.remove('dark-mode');
             body.classList.add('light-mode');
+            themeToggle.setAttribute('aria-pressed', 'true');
         } else {
             body.classList.remove('light-mode');
             body.classList.add('dark-mode');
+            themeToggle.setAttribute('aria-pressed', 'false');
         }
     };
 
@@ -32,9 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (body.classList.contains('dark-mode')) {
             body.classList.replace('dark-mode', 'light-mode');
             localStorage.setItem('theme', 'light');
+            themeToggle.setAttribute('aria-pressed', 'true');
         } else {
             body.classList.replace('light-mode', 'dark-mode');
             localStorage.setItem('theme', 'dark');
+            themeToggle.setAttribute('aria-pressed', 'false');
         }
     });
 
@@ -155,5 +159,27 @@ document.addEventListener('DOMContentLoaded', () => {
             setLanguage(currentLang === 'EN' ? 'AR' : 'EN');
         });
         setLanguage(currentLang);
+    }
+
+    // --- Typewriter Effect for Profile Title ---
+    function typeWriter(element, text, speed = 80, loop = true) {
+        let i = 0;
+        function type() {
+            if (i <= text.length) {
+                element.textContent = text.slice(0, i);
+                i++;
+                setTimeout(type, speed);
+            } else if (loop) {
+                setTimeout(() => {
+                    i = 0;
+                    type();
+                }, 1200);
+            }
+        }
+        type();
+    }
+    const profileTitle = document.querySelector('.profile-title');
+    if (profileTitle) {
+        typeWriter(profileTitle, 'Full-Stack Developer');
     }
 });
